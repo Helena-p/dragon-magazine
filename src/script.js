@@ -20,11 +20,18 @@ async function getArticles() {
         let header = data.publication;
         let articles = data.articles;
 
+        // If no articles to show
+        if (!articles || articles.length < 1) {
+            throw "No articles found";
+        }
+
         app.innerHTML = `
         <h1 class="header">${header}</h1> 
         <div class="article-container">
            
             ${articles
+                // Iterate over the data and extract the elements and render
+                // on page in html markup
                 .map(function (article) {
                     return `<div class="article-container__box">
                     <h2 class="header-secondary">${article.title}</h2>
