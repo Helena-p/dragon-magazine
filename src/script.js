@@ -19,21 +19,22 @@ async function getArticles() {
 
         let header = data.publication;
         let articles = data.articles;
-        console.log(articles[0].title);
-        console.log(articles[0].author);
-        console.log(articles[0].pubdate);
-        console.log(articles[0].article);
 
         app.innerHTML = `
         <h1 class="header">${header}</h1> 
         <div class="article-container">
-            <ul>
+           
             ${articles
                 .map(function (article) {
-                    return `<li>${article}</li>`;
+                    return `<div class="article-container__box">
+                    <h2 class="header-secondary">${article.title}</h2>
+                    <h3 class="header-tertiary">By ${article.author}</h3>
+                    <p class="paragraph">${article.article}</p>
+                    <p class="paragraph"><small>${article.pubdate}, Read the whole story: <a href="#"> ${article.url}</a></small></p>
+                    </div>`;
                 })
                 .join("")}
-            </ul>
+            
             
         </div>`;
     } catch (error) {
