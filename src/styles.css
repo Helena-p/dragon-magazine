@@ -1,6 +1,6 @@
 .container {
     width: 100%;
-    max-width: 32rem;
+    max-width: 40rem;
     height: auto;
     margin: auto;
 }
@@ -9,4 +9,6 @@
     color: teal;
     font-weight: lighter;
     text-transform: uppercase;
+    padding: 2em;
+    width: 100%;
 }
