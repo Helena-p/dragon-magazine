@@ -1,0 +1,12 @@
+.container {
+    width: 100%;
+    max-width: 32rem;
+    height: auto;
+    margin: auto;
+}
+
+.header {
+    color: teal;
+    font-weight: lighter;
+    text-transform: uppercase;
+}
