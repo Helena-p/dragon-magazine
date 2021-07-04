@@ -48,16 +48,16 @@ async function getArticles() {
                 // on page in html markup
                 .map(function (article) {
                     return `<div class="article-container__box">
-                    <h2 class="header-secondary">${sanitizeHTML(
-                        article.title
-                    )}</h2>
+                    <h2 class="header-secondary"><a href="${sanitizeHTML(
+                        article.url
+                    )}">${sanitizeHTML(article.title)}</a></h2>
                     <h3 class="header-tertiary">By ${sanitizeHTML(
                         article.author
                     )}</h3>
                     <p class="paragraph">${sanitizeHTML(article.article)}</p>
                     <p class="paragraph"><small>${sanitizeHTML(
                         article.pubdate
-                    )}, Read the whole story: <a href="#"> ${article.url}</a></small></p>
+                    )}</small></p>
                     </div>`;
                 })
                 .join("")}
