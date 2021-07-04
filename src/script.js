@@ -3,6 +3,20 @@
 const app = document.querySelector("#app");
 const endpoint = "https://vanillajsacademy.com/api/dragons.json";
 
+/**
+ * Sanitize and encode all HTML in a user-submitted string
+ * https://portswigger.net/web-security/cross-site-scripting/preventing
+ * @param  {String} str  The user-submitted string
+ * @return {String} str  The sanitized string
+ */
+function sanitizeHTML(str) {
+    return str
+        .replace(/javascript:/gi, "")
+        .replace(/[^\w-_. ]/gi, function (c) {
+            return `&#${c.charCodeAt(0)};`;
+        });
+}
+
 async function getArticles() {
     try {
         // Fetch data from API
@@ -26,7 +40,7 @@ async function getArticles() {
         }
 
         app.innerHTML = `
-        <h1 class="header">${header}</h1> 
+        <h1 class="header">${sanitizeHTML(header)}</h1> 
         <div class="article-container">
            
             ${articles
@@ -34,10 +48,16 @@ async function getArticles() {
                 // on page in html markup
                 .map(function (article) {
                     return `<div class="article-container__box">
-                    <h2 class="header-secondary">${article.title}</h2>
-                    <h3 class="header-tertiary">By ${article.author}</h3>
-                    <p class="paragraph">${article.article}</p>
-                    <p class="paragraph"><small>${article.pubdate}, Read the whole story: <a href="#"> ${article.url}</a></small></p>
+                    <h2 class="header-secondary">${sanitizeHTML(
+                        article.title
+                    )}</h2>
+                    <h3 class="header-tertiary">By ${sanitizeHTML(
+                        article.author
+                    )}</h3>
+                    <p class="paragraph">${sanitizeHTML(article.article)}</p>
+                    <p class="paragraph"><small>${sanitizeHTML(
+                        article.pubdate
+                    )}, Read the whole story: <a href="#"> ${article.url}</a></small></p>
                     </div>`;
                 })
                 .join("")}
